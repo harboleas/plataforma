@@ -1,0 +1,46 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://Main.cs" type="Script" id=1]
+
+[sub_resource type="PlaneMesh" id=1]
+size = Vector2( 10, 10 )
+
+[sub_resource type="CubeMesh" id=2]
+size = Vector3( 2, 2, 0.1 )
+
+[sub_resource type="SphereMesh" id=3]
+radius = 0.2
+height = 0.4
+
+[node name="Main" type="Spatial"]
+script = ExtResource( 1 )
+
+[node name="Camera" type="Camera" parent="."]
+transform = Transform( 0.990691, 0.0370588, -0.130989, 0, 0.962232, 0.27223, 0.136131, -0.269696, 0.953275, -1.21812, 1.87188, 5.49471 )
+near = 0.01
+far = 1492.8
+
+[node name="Tierra" type="MeshInstance" parent="."]
+visible = false
+mesh = SubResource( 1 )
+material/0 = null
+
+[node name="Plataforma" type="MeshInstance" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.063, 0 )
+mesh = SubResource( 2 )
+material/0 = null
+
+[node name="UI" type="CanvasLayer" parent="."]
+
+[node name="Label" type="Label" parent="UI"]
+margin_left = 45.0
+margin_top = 226.0
+margin_right = 83.0
+margin_bottom = 240.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Punto" type="MeshInstance" parent="."]
+mesh = SubResource( 3 )
+material/0 = null
