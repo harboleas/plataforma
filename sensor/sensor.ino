@@ -6,6 +6,7 @@ void setup()
 {
   Serial.begin(115200);
   sensor.powerOn();
+  sensor.setRangeSetting(16);
 }
 
 void loop() 

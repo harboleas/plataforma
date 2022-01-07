@@ -11,13 +11,15 @@ public class Main : Spatial
 
     // Called when the node enters the scene tree for the first time.
     SerialPort port;
-    int x;
-    int y;
-    int z;
+    int x_sen;
+    int y_sen;
+    int z_sen;
     string dato;
+    Vector3 grav;
     Label label;
-    MeshInstance plat;
+    StaticBody plat;
     MeshInstance punto;
+
     public override void _Ready()
     {
         try
@@ -36,7 +38,7 @@ public class Main : Spatial
         }
 
         label = GetNode<Label>("UI/Label");
-        plat = GetNode<MeshInstance>("Plataforma");
+        plat = GetNode<StaticBody>("Plataforma");
         punto = GetNode<MeshInstance>("Punto");
 
     }
@@ -48,18 +50,27 @@ public class Main : Spatial
         if (port.BytesToRead > 0)
         {
             dato = port.ReadLine();
-            label.Text = dato;
-            x = int.Parse(dato.Split(",")[0]);
-            y = int.Parse(dato.Split(",")[1]);
-            z = int.Parse(dato.Split(",")[2]);
-            plat.LookAt((new Vector3(x, -z, -y)).Normalized(), Vector3.Up);
-            punto.Translation = (new Vector3(-x, -z, y)).Normalized() * 2;
+            x_sen = int.Parse(dato.Split(",")[0]);
+            y_sen = int.Parse(dato.Split(",")[1]);
+            z_sen = int.Parse(dato.Split(",")[2]);
+            grav = new Vector3(-x_sen, -z_sen, y_sen);
+            var n = (new Vector3(grav.x, -grav.y, grav.z)).Normalized();
+            var nz = (new Vector3(n.x, n.y, 0)).Normalized();
+            var nx = (new Vector3(0, n.y, n.z)).Normalized();
+
+            var ang_x = Vector3.Up.SignedAngleTo(nx, Vector3.Right);
+            var ang_z = Vector3.Up.SignedAngleTo(nz, Vector3.Back);
+
+            plat.Rotation = (new Vector3(ang_x, 0, ang_z));
+
+            label.Text = grav.ToString();
+            punto.Translation = plat.Transform.origin + grav.Normalized() * 2;
+
         }
     }
         
-    public override void _ExitTree()
+    public void _on_exiting()
     {
-        base._ExitTree();
         port.Dispose();
     }
 }
