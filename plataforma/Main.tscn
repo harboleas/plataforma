@@ -3,10 +3,10 @@
 [ext_resource path="res://Main.cs" type="Script" id=1]
 
 [sub_resource type="PlaneMesh" id=1]
-size = Vector2( 30, 30 )
+size = Vector2( 100, 100 )
 
 [sub_resource type="BoxShape" id=7]
-extents = Vector3( 14.9329, 0.313795, 14.5569 )
+extents = Vector3( 47.8907, 0.313795, 42.9959 )
 
 [sub_resource type="CubeMesh" id=2]
 size = Vector3( 10, 0.1, 10 )
@@ -31,13 +31,14 @@ height = 0.58
 script = ExtResource( 1 )
 
 [node name="Camera" type="Camera" parent="."]
-transform = Transform( 1, 0, 0, 0, 0.949508, 0.313744, 0, -0.313744, 0.949508, 0, 9.59754, 16.5862 )
+transform = Transform( 0.99884, 0.0151075, -0.0457211, 0, 0.949508, 0.313744, 0.0481524, -0.31338, 0.948406, 0, 13.077, 18.368 )
 near = 0.01
 far = 1492.8
 
 [node name="StaticBody" type="StaticBody" parent="."]
 
 [node name="Tierra" type="MeshInstance" parent="StaticBody"]
+visible = false
 mesh = SubResource( 1 )
 skeleton = NodePath("../..")
 material/0 = null
@@ -47,7 +48,7 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.265724, 0 )
 shape = SubResource( 7 )
 
 [node name="Plataforma" type="KinematicBody" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.94671, 0 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 9.31401, 0 )
 
 [node name="Plataforma_mesh" type="MeshInstance" parent="Plataforma"]
 mesh = SubResource( 2 )
