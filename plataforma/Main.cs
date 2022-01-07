@@ -17,7 +17,7 @@ public class Main : Spatial
     string dato;
     Vector3 grav;
     Label label;
-    StaticBody plat;
+    KinematicBody plat;
     MeshInstance punto;
 
     public override void _Ready()
@@ -38,13 +38,13 @@ public class Main : Spatial
         }
 
         label = GetNode<Label>("UI/Label");
-        plat = GetNode<StaticBody>("Plataforma");
+        plat = GetNode<KinematicBody>("Plataforma");
         punto = GetNode<MeshInstance>("Punto");
 
     }
 
     //  // Called every frame. 'delta' is the elapsed time since the previous frame.
-    public override void _Process(float delta)
+    public override void _PhysicsProcess(float delta)
     {
         port.Write(" "); // Para sincronizar
         if (port.BytesToRead > 0)
